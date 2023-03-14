@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// route para o crud de pessoas.
 Route::resource("/Pessoas", PessoaController::class)
     ->middleware("auth");
+
+Route::fallback(FallbackController::class);
 
 require __DIR__.'/auth.php';
