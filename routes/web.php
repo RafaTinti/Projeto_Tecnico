@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 Route::resource("/Pessoas", PessoaController::class)
     ->middleware("auth");
 
+// Fallback back to welcome page
 Route::fallback(FallbackController::class);
 
 require __DIR__.'/auth.php';

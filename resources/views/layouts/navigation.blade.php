@@ -15,6 +15,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <!-- link on nav for pessoas -->
                     <x-nav-link :href="route('Pessoas.index')" :active="request()->routeIs('Pessoas.index')">
                         {{ __('Pessoas') }}
                     </x-nav-link>
@@ -73,6 +74,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <!-- ADDs the links for Pessoas route on mobile -->
             <x-responsive-nav-link :href="route('Pessoas.index')" :active="request()->routeIs('Pessoas.index')">
                 {{ __('Pessoas') }}
             </x-responsive-nav-link>
