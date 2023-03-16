@@ -16,6 +16,5 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserTableSeeder::class);//seeds o usuario defaut
         Pessoa::factory(50)->create();
-
     }
 }

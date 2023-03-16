@@ -36,20 +36,19 @@
                         </th>
                     </tr>
                 </thead>
-                @forelse ($pessoas as $pessoa)
                 <tbody>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
-                            <a href="{{ route("Pessoas.show", $pessoa->id) }}">{{ $pessoa->nome }}</a>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                            {{ $pessoa->nome }}
                         </th>
                         <td class="px-6 py-4">
                             {{ $pessoa->fis_ou_jur }}
                         </td>
                         <td class="px-6 py-4">
                             {{ ($pessoa->fis_ou_jur) === "fisica" ? $pessoa->cpf : $pessoa->cnpj }}
-                        </td>                            
+                        </td>
                         <td class="px-6 py-4">
-                                {{ $pessoa->cidade }}
+                            {{ $pessoa->cidade }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $pessoa->estado }}
@@ -71,10 +70,9 @@
                         </td>
                     </tr>
                 </tbody>
-                @empty
-                    <h1 class=" text-center text-3xl ">Não existem pessoas cadastradas</h1>
-                @endforelse
             </table>
+            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Criado ou modificado por ultimo por <a class=" text-cyan-500 font-bold text-lg" href="">{{ "pessoa" }}</a></p>
+            {{-- colocar usuario que criou o modificou--}}
         </div>
     </div>
 </x-app-layout>

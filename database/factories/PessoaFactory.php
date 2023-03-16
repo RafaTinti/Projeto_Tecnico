@@ -16,8 +16,8 @@ class PessoaFactory extends Factory
      */
     public function definition(): array
     {
-        $faker = \Faker\Factory::create('pt_BR');
-        $n = random_int(0,1);
+        $faker = \Faker\Factory::create('pt_BR');//precisar pra usar faker com dados BR
+        $n = random_int(0,1);// numero aleatorio para definir se e jur ou fis
         return [
             "nome" => $faker->name(),
             "user_id" => 1,//usuario padrao

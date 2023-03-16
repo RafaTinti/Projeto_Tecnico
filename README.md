@@ -71,4 +71,4 @@ php artisan migrate to make the tables
 
 php artisan db:seed to run the seeders
 
-php artisan migrate --seed to migrate and seed the default user
+php artisan migrate --seed to migrate and seed 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pessoa;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PessoaController extends Controller
 {
@@ -13,7 +14,11 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        return view("Pessoas.index");
+        // $pessoas = Pessoa::orderBy("updated_at", "desc")->get(); // other option
+        // dd($pessoas);
+        return view("Pessoas.index", [
+            "pessoas" => Pessoa::get(), // gets all pessoas
+        ]);
     }
 
     /**
@@ -35,9 +40,11 @@ class PessoaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pessoa $pessoa)
+    public function show($id)
     {
-        //
+        return view("Pessoas.show", [
+            "pessoa" => Pessoa::findOrFail($id),
+        ]);
     }
 
     /**
