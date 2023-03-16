@@ -26,7 +26,7 @@ class PessoaController extends Controller
      */
     public function create()
     {
-        //
+        return view("Pessoas.create");
     }
 
     /**
@@ -34,7 +34,7 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all);
     }
 
     /**

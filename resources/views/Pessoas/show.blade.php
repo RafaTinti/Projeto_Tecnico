@@ -71,7 +71,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Criado ou modificado por ultimo por <a class=" text-cyan-500 font-bold text-lg" href="">{{ "pessoa" }}</a></p>
+            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Criado ou modificado por último por <a class=" text-green-400 font-bold text-lg" href="">{{ "pessoa" }}.</a></p>
             {{-- colocar usuario que criou o modificou--}}
         </div>
     </div>
