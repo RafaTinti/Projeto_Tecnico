@@ -7,6 +7,20 @@
             <hr class="border border-1 border-gray-300 mt-10">
         </div>
     </div>
+    <div class=" max-w-fit mx-auto pb-8">
+        @if ($errors->any())
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                Informações inválidas
+            </div>
+            <ul class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                @foreach ($errors->all() as $error)
+                    <li>
+                        {{ $error }}
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
     <div class=" w-2/3  mx-auto p-4 sm:p-6 lg:p-8">
         <form action="{{ route("Pessoas.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -33,7 +47,7 @@
             <input type="email" name="email" id="email" placeholder="email..." class="shadow appearance-none border rounded w-full py-2 px-3 my-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             <button type="submit" class=" float-right my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
             Salvar
-        </button>
+            </button>
         </form>
     </div>
 </x-app-layout>

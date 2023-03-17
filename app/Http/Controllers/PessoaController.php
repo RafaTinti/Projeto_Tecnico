@@ -34,7 +34,34 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all);
+        $request->validate([
+            'nome' => 'required|max:255|alpha',
+            'fis_ou_jur' => 'required|',
+
+            // se e pessoa fisica cpf e required unico e segue o padrao se e juridica sem verificacao pq e nullado na hora de salvar
+            'cpf' => ($request->fis_ou_jur === "fisica")? 'required|unique:pessoas|regex:([0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2})' : '',
+            //similar para o cnpj
+            'cnpj' => ($request->fis_ou_jur === "juridica")? 'required|unique:pessoas|regex:([0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2})': '',
+
+            'cidade' => 'required',
+            'estado' => 'required|regex:([A-Z]{2})', // verifica se sao duas letras maiusculas
+            'contato' => 'required|regex:(\([0-9]{2}\)[ ][0-9]{5}[-][0-9]{4})', 
+            'email' => 'required|unique:pessoas|email',
+        ]);
+
+        Pessoa::create([
+            'nome' => $request->nome,
+            'fis_ou_jur' => $request->fis_ou_jur,
+            'cpf' => ($request->fis_ou_jur === "fisica")? $request->cpf : null,
+            'cnpj' => ($request->fis_ou_jur === "fisica")? null : $request->cnpj,
+            'cidade' => $request->cidade,
+            'estado' => $request->estado,
+            'contato' => $request->contato,
+            'email' => $request->email,
+            'ativo' => true, // pessoas sao sempre ativas quando cadastradas
+            'user_id' => $request->user()->id, // cadastros sao associados ao usuario que o criou
+        ]);
+        return redirect(route("Pessoas.index"));
     }
 
     /**
