@@ -17,7 +17,7 @@ class PessoaController extends Controller
         // $pessoas = Pessoa::orderBy("updated_at", "desc")->get(); // other option
         // dd($pessoas);
         return view("Pessoas.index", [
-            "pessoas" => Pessoa::get(), // gets all pessoas
+            "pessoas" => Pessoa::paginate(10), // gets all pessoas
         ]);
     }
 
@@ -35,7 +35,7 @@ class PessoaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required|max:255|alpha',
+            'nome' => 'required|max:255',
             'fis_ou_jur' => 'required|',
 
             // se e pessoa fisica cpf e required unico e segue o padrao se e juridica sem verificacao pq e nullado na hora de salvar
@@ -77,24 +77,52 @@ class PessoaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pessoa $pessoa)
+    public function edit($id)
     {
-        //
+        return view("Pessoas.edit", [
+            "pessoa" => Pessoa::findOrFail($id),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pessoa $pessoa)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:255',
+            'fis_ou_jur' => 'required|',
+
+            // se e pessoa fisica cpf e required unico e segue o padrao se e juridica sem verificacao pq e nullado na hora de salvar
+            'cpf' => ($request->fis_ou_jur === "fisica")? 'required|regex:([0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2})|unique:pessoas,cpf,' . $id : '',
+            //similar para o cnpj
+            'cnpj' => ($request->fis_ou_jur === "juridica")? 'required|regex:([0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2})|unique:pessoas,cnpj,' . $id: '',
+            'cidade' => 'required',
+            'estado' => 'required|regex:([A-Z]{2})', // verifica se sao duas letras maiusculas
+            'contato' => 'required|regex:(\([0-9]{2}\)[ ][0-9]{5}[-][0-9]{4})', 
+            'email' => 'required||email|unique:pessoas,email,' . $id,
+        ]);
+        Pessoa::where("id", $id)->update([
+            'nome' => $request->nome,
+            'fis_ou_jur' => $request->fis_ou_jur,
+            'cpf' => ($request->fis_ou_jur === "fisica")? $request->cpf : null,
+            'cnpj' => ($request->fis_ou_jur === "fisica")? null : $request->cnpj,
+            'cidade' => $request->cidade,
+            'estado' => $request->estado,
+            'contato' => $request->contato,
+            'email' => $request->email,
+            'ativo' => ($request->ativo)? true : false, // pessoas sao sempre ativas quando cadastradas
+            'user_id' => $request->user()->id, // atualiza que usuario modificou
+        ]);
+        return redirect(route("Pessoas.index"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pessoa $pessoa)
+    public function destroy($id)
     {
-        //
+        Pessoa::destroy($id);
+        return redirect(route("Pessoas.index"))->with("message","Excluido com sucesso");
     }
 }
