@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserTableSeeder::class);//seeds o usuario defaut
         Pessoa::factory(50)->create();//cria 50 pessoas falsas
-        Categoria::factory(10)->create(); //cria 10 categorias falsas
+        Categoria::factory(20)->create(); //cria 10 categorias falsas
     }
 }

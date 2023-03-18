@@ -12,4 +12,8 @@ class Pessoa extends Model
     protected $fillable = [
         'nome', 'fis_ou_jur', 'cpf', 'cnpj', 'cidade', 'estado', 'contato', 'email', 'ativo', 'user_id',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

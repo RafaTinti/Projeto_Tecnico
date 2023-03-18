@@ -72,8 +72,8 @@
                 </tbody>
             </table>
         </div>
-        <div class=" flex justify-between">
-            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Criado ou modificado por último por <a class=" text-green-400 font-bold text-lg" href="">{{ Auth::user()->name }}.</a></p>
+        <div class=" flex justify-between flex-wrap">
+            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Criado ou modificado por último por <a class=" text-green-400 font-bold text-lg" href="">{{ $pessoa->user->name }}.</a></p>
             {{-- colocar usuario que criou ou modificou--}}
             <div class="flex">
                 <div class=" px-6 py-4">

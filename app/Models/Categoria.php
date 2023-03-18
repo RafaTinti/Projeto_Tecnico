@@ -12,4 +12,8 @@ class Categoria extends Model
     protected $fillable = [
         "categoria","tipo","user_id",
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

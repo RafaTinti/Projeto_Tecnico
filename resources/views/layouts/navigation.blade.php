@@ -19,6 +19,10 @@
                     <x-nav-link :href="route('Pessoas.index')" :active="request()->routeIs('Pessoas.index')">
                         {{ __('Pessoas') }}
                     </x-nav-link>
+                    <!-- link on nav for categorias -->
+                    <x-nav-link :href="route('Categorias.index')" :active="request()->routeIs('Categorias.index')">
+                        {{ __('Categorias') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -77,6 +81,10 @@
             <!-- ADDs the links for Pessoas route on mobile -->
             <x-responsive-nav-link :href="route('Pessoas.index')" :active="request()->routeIs('Pessoas.index')">
                 {{ __('Pessoas') }}
+            </x-responsive-nav-link>
+            <!-- ADDs the links for Pessoas route on mobile -->
+            <x-responsive-nav-link :href="route('Categorias.index')" :active="request()->routeIs('Categorias.index')">
+                {{ __('Categorias') }}
             </x-responsive-nav-link>
         </div>
 
