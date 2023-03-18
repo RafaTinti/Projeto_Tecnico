@@ -16,4 +16,7 @@ class Pessoa extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function transacoes(){
+        return $this->hasMany(Transacao::class);
+    }
 }
