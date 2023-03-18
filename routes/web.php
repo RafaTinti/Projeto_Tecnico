@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ProfileController;
@@ -32,6 +33,9 @@ Route::middleware('auth')->group(function () {
 
 // route para o crud de pessoas.
 Route::resource("/Pessoas", PessoaController::class)
+    ->middleware("auth");
+
+Route::resource("/Categorias", CategoriaController::class)
     ->middleware("auth");
 
 // Fallback back to welcome page
