@@ -21,7 +21,7 @@ class TransacaoFactory extends Factory
             "user_id" => 1,
             "pessoa_id" => random_int(1,50), 
             "categoria_id" => random_int(1,20), 
-            "descricao" => fake()->sentence(), 
+            "descricao" => fake()->sentence(4), 
             "valor" => random_int(100, 1000000),
             "status" => random_int(0,1)? "pendente" : "liquidada",
             "vencimento" => Carbon::now(),

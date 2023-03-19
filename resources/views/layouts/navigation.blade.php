@@ -15,6 +15,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <!-- link on nav for transacoes -->
+                    <x-nav-link :href="route('Transacao.index')" :active="request()->routeIs('Transacao.index')">
+                        {{ __('Transações') }}
+                    </x-nav-link>
                     <!-- link on nav for pessoas -->
                     <x-nav-link :href="route('Pessoas.index')" :active="request()->routeIs('Pessoas.index')">
                         {{ __('Pessoas') }}
@@ -78,11 +82,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <!-- ADDs the links for Transacoes route on mobile -->
+            <x-responsive-nav-link :href="route('Transacao.index')" :active="request()->routeIs('Transacao.index')">
+                {{ __('Transações') }}
+            </x-responsive-nav-link>
             <!-- ADDs the links for Pessoas route on mobile -->
             <x-responsive-nav-link :href="route('Pessoas.index')" :active="request()->routeIs('Pessoas.index')">
                 {{ __('Pessoas') }}
             </x-responsive-nav-link>
-            <!-- ADDs the links for Pessoas route on mobile -->
+            <!-- ADDs the links for Categorias route on mobile -->
             <x-responsive-nav-link :href="route('Categorias.index')" :active="request()->routeIs('Categorias.index')">
                 {{ __('Categorias') }}
             </x-responsive-nav-link>

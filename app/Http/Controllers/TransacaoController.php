@@ -13,7 +13,9 @@ class TransacaoController extends Controller
      */
     public function index()
     {
-        //
+        return view("Transacao.index", [
+            "transacoes" => Transacao::paginate(10), // gets all pessoas
+        ]);
     }
 
     /**
@@ -35,15 +37,17 @@ class TransacaoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Transacao $transacao)
+    public function show($id)
     {
-        //
+        return view("Transacao.show", [
+            "transacao" => Transacao::findOrFail($id),
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transacao $transacao)
+    public function edit($id)
     {
         //
     }
@@ -51,7 +55,7 @@ class TransacaoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transacao $transacao)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -59,7 +63,7 @@ class TransacaoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transacao $transacao)
+    public function destroy($id)
     {
         //
     }

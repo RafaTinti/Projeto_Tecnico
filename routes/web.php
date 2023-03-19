@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransacaoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,9 +36,14 @@ Route::middleware('auth')->group(function () {
 Route::resource("/Pessoas", PessoaController::class)
     ->middleware("auth");
 
+// route para o crud de categorias
 Route::resource("/Categorias", CategoriaController::class)
     ->middleware("auth");
 
+// route para o crud de transacoes
+Route::resource("/Transacao", TransacaoController::class)
+    ->middleware("auth");
+    
 // Fallback back to welcome page
 Route::fallback(FallbackController::class);
 
