@@ -17,15 +17,16 @@ class TransacaoFactory extends Factory
      */
     public function definition(): array
     {
+        $n = random_int(0,1);
         return [
             "user_id" => 1,
             "pessoa_id" => random_int(1,50), 
             "categoria_id" => random_int(1,20), 
             "descricao" => fake()->sentence(4), 
             "valor" => random_int(100, 1000000),
-            "status" => random_int(0,1)? "pendente" : "liquidada",
-            "vencimento" => Carbon::now(),
-            "liquidada" => Carbon::now(),
+            "status" => $n? "pendente" : "liquidada",
+            "vencimento" => Carbon::now()->format("Y-m-d"),
+            "liquidada" => $n ? null : Carbon::now()->format("Y-m-d"),
         ];
     }
 }

@@ -27,16 +27,19 @@
             <input type="text" name="categoria" placeholder="Nome da categoria..." class="shadow appearance-none border rounded w-full py-2 px-3 my-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                
             <div class="flex  my-1 justify-between">
-                    <label class=" text-gray-700 text-sm font-bold mb-2 mt-2 mr-3" for="tipo">Débito ou Crédito</label>
-                    <select name="tipo" id="tipo" class=" shadow appearance-none border rounded w-1/2 py-2 px-3 my-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="debito">Débito</option>
-                        <option value="credito">Crédito</option>
-                    </select>
+                <label class=" text-gray-700 text-sm font-bold mb-2 mt-2 mr-3" for="tipo">Débito ou Crédito</label>
+                <select name="tipo" id="tipo" class=" shadow appearance-none border rounded w-1/2 py-2 px-3 my-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="debito">Débito</option>
+                    <option value="credito">Crédito</option>
+                </select>
             </div>
 
-            <button type="submit" class=" float-right my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-            Salvar
-            </button>
+            <div class="flex my-1 justify-between">
+                <div></div>
+                <button type="submit" class=" my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+                    Salvar
+                </button>
+            </div>
         </form>
     </div>
 </x-app-layout>

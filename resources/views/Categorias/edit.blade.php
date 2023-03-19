@@ -36,9 +36,12 @@
                     </select>
             </div>
 
-            <button type="submit" class=" float-right my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-            Salvar
-            </button>
+            <div class="flex my-1 justify-between">
+                <div></div>
+                <button type="submit" class=" my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+                    Salvar
+                </button>
+            </div>
         </form>
     </div>
 </x-app-layout>

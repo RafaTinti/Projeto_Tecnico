@@ -50,11 +50,15 @@
             <input type="email" name="email" id="email" value="{{ $pessoa->email }}" class="shadow appearance-none border rounded w-full py-2 px-3 my-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 
             <input type="checkbox" id="ativo" name="ativo" value="true" {{ $pessoa->ativo? "checked" : "" }}>
+            
             <label class=" text-gray-700 text-sm font-bold mb-2 mt-2 mr-3" for="ativo">Cadastro ainda ativo?</label>
             
-            <button type="submit" class=" float-right my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-            Salvar
-            </button>
+            <div class="flex my-1 justify-between">
+                <div></div>
+                <button type="submit" class=" my-3 uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+                    Salvar
+                </button>
+            </div>
         </form>
     </div>
 </x-app-layout>
