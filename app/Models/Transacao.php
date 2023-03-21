@@ -10,7 +10,7 @@ class Transacao extends Model
     use HasFactory;
 
     protected $fillable = [
-        "user_id", "pessoa_id", "categoria_id", "descricao", "valor", "status", "vencimento", "liquidada",
+        "user_id", "pessoa_id", "categoria_id", "descricao", "valor", "status", "vencimento", "liquidada", "excluido",
     ];
 
     public function user(){

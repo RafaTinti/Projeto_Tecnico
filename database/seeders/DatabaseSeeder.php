@@ -20,5 +20,10 @@ class DatabaseSeeder extends Seeder
         Pessoa::factory(50)->create();//cria 50 pessoas falsas
         Categoria::factory(20)->create(); //cria 10 categorias falsas
         Transacao::factory(50)->create(); //cria 50 transacoes falsas
+
+        $pessoas = Pessoa::get();
+        foreach ($pessoas as $pessoa){
+            $pessoa->users()->attach(1, ["tipo" => "created"]);
+        }
     }
 }

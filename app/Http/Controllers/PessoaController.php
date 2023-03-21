@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pessoa;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PessoaController extends Controller
@@ -17,7 +18,7 @@ class PessoaController extends Controller
         // $pessoas = Pessoa::orderBy("updated_at", "desc")->get(); // other option
         // dd($pessoas);
         return view("Pessoas.index", [
-            "pessoas" => Pessoa::paginate(10), // gets all pessoas
+            "pessoas" => Pessoa::where("excluido", false)->paginate(10), // gets all pessoas que nao foram excluidas
         ]);
     }
 
@@ -49,7 +50,7 @@ class PessoaController extends Controller
             'email' => 'required|unique:pessoas|email',
         ]);
 
-        Pessoa::create([
+        $pessoa = Pessoa::create([
             'nome' => $request->nome,
             'fis_ou_jur' => $request->fis_ou_jur,
             'cpf' => ($request->fis_ou_jur === "fisica")? $request->cpf : null,
@@ -58,9 +59,12 @@ class PessoaController extends Controller
             'estado' => $request->estado,
             'contato' => $request->contato,
             'email' => $request->email,
+            'excluido' => false,
             'ativo' => true, // pessoas sao sempre ativas quando cadastradas
-            'user_id' => $request->user()->id, // cadastros sao associados ao usuario que o criou
         ]);
+
+        $pessoa->users()->attach(Auth::id(), ["tipo" => "created"]);
+
         return redirect(route("Pessoas.index"));
     }
 
@@ -69,8 +73,16 @@ class PessoaController extends Controller
      */
     public function show($id)
     {
+        $pessoa = Pessoa::where("excluido", false)->findOrFail($id);
+        
+        
+
+
+
         return view("Pessoas.show", [
-            "pessoa" => Pessoa::findOrFail($id),
+            "pessoa" => $pessoa,
+            "criador" => $pessoa->users->first(),
+            "modificador" => $pessoa->users->last(),
         ]);
     }
 
@@ -80,7 +92,7 @@ class PessoaController extends Controller
     public function edit($id)
     {
         return view("Pessoas.edit", [
-            "pessoa" => Pessoa::findOrFail($id),
+            "pessoa" => Pessoa::where("excluido", false)->findOrFail($id),
         ]);
     }
 
@@ -112,8 +124,8 @@ class PessoaController extends Controller
             'contato' => $request->contato,
             'email' => $request->email,
             'ativo' => ($request->ativo)? true : false, // pessoas sao sempre ativas quando cadastradas
-            'user_id' => $request->user()->id, // atualiza que usuario modificou
         ]);
+        Pessoa::find($id)->users()->attach(Auth::id(), ["tipo" => "updated"]);
         return redirect(route("Pessoas.index"));
     }
 
@@ -122,7 +134,10 @@ class PessoaController extends Controller
      */
     public function destroy($id)
     {
-        Pessoa::destroy($id);
+        Pessoa::where("id", $id)->update([
+            "excluido" => true,
+        ]);
+        Pessoa::find($id)->users()->attach(Auth::id(), ["tipo" => "deleted"]);
         return redirect(route("Pessoas.index"))->with("message","Excluido com sucesso");
     }
 }

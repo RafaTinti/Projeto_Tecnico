@@ -10,12 +10,13 @@ class Pessoa extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nome', 'fis_ou_jur', 'cpf', 'cnpj', 'cidade', 'estado', 'contato', 'email', 'ativo', 'user_id',
+        'nome', 'fis_ou_jur', 'cpf', 'cnpj', 'cidade', 'estado', 'contato', 'email', 'ativo', 'user_id', "excluido",
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function users(){
+        return $this->belongsToMany(User::class)->withPivot("tipo");
     }
+
     public function transacoes(){
         return $this->hasMany(Transacao::class);
     }

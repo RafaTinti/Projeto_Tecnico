@@ -73,7 +73,8 @@
             </table>
         </div>
         <div class=" flex justify-between flex-wrap">
-            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Criado ou modificado por último por <a class=" text-green-400 font-bold text-lg" href="">{{ $pessoa->user->name }}.</a></p>
+            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">Cadastro criado por <a class=" text-green-400 font-bold text-lg" href="">{{ $criador->name . "."}}</a></p>
+            <p class="px-6 py-4 font-medium text-gray-700 dark:text-white">modificado por ultimo por <a class=" text-green-400 font-bold text-lg" href="">{{ ($modificador)?$modificador->name . "." : "" }}</a></p>
             <div class="flex">
                 <div class=" px-6 py-4">
                     <a href="{{ route("Pessoas.edit", $pessoa->id) }}"><button type="button" class=" px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Editar</button></a>

@@ -20,7 +20,7 @@ class PessoaFactory extends Factory
         $n = random_int(0,1);// numero aleatorio para definir se e jur ou fis
         return [
             "nome" => $faker->name(),
-            "user_id" => 1,//usuario padrao
+            // "user_id" => 1,//usuario padrao
             "estado" => $faker->stateAbbr(),
             "cidade" => $faker->city(),
             "fis_ou_jur" => ($n)? "fisica" : "juridica",
@@ -29,7 +29,7 @@ class PessoaFactory extends Factory
             "ativo" => $faker->boolean(),
             "contato" => $faker->cellphoneNumber(),
             "email" => $faker->safeEmail(),
-            "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
+            // "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
             "excluido" => false,// sempre falso ate ser modificado no destroy do controller
         ];
     }

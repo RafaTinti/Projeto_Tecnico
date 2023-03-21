@@ -42,8 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pessoas(){
-        return $this->hasMany(Pessoa::class);
+    public function users(){
+        return $this->belongsToMany(Pessoa::class)->withPivot("tipo");;
     }
 
     public function categorias(){

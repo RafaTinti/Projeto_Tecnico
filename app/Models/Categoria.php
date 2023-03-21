@@ -10,11 +10,11 @@ class Categoria extends Model
     use HasFactory;
 
     protected $fillable = [
-        "categoria","tipo","user_id",
+        "categoria","tipo","user_id", "excluido",
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function pessoas(){
+        return $this->belongsTo(Pessoa::class);
     }
     public function transacoes(){
         return $this->hasMany(Transacao::class);
