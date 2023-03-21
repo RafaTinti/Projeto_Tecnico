@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('pessoas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");//qual usario fez o cadastro
+            $table->unsignedBigInteger("modified_by_user_id");//qual usuario mmodificou por ultimo ou excluiu
+            $table->boolean("excluido");
             $table->string("nome");
             $table->string("estado",2);
             $table->string("cidade");
@@ -24,6 +26,7 @@ return new class extends Migration
             $table->string("contato");// guarda o numero como (81) 99927-0692
             $table->string("email", 255)->unique();
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("modified_by_user_id")->references("id")->on("users")->onDelete("cascade");
             //user_id e chave estrangeira vindo da tabela users e quando o usuario e deletado deleta 
             //as pessoas que ele criou
             $table->timestamps();

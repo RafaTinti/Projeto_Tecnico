@@ -27,6 +27,8 @@ class TransacaoFactory extends Factory
             "status" => $n? "pendente" : "liquidada",
             "vencimento" => Carbon::now()->format("Y-m-d"),
             "liquidada" => $n ? null : Carbon::now()->format("Y-m-d"),
+            "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
+            "excluido" => false,// sempre falso ate ser modificado no destroy do controller
         ];
     }
 }

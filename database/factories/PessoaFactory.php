@@ -29,6 +29,8 @@ class PessoaFactory extends Factory
             "ativo" => $faker->boolean(),
             "contato" => $faker->cellphoneNumber(),
             "email" => $faker->safeEmail(),
+            "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
+            "excluido" => false,// sempre falso ate ser modificado no destroy do controller
         ];
     }
 }
