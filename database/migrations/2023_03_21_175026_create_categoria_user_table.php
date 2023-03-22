@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorias', function (Blueprint $table) {
-            $table->id();
-            $table->boolean("excluido")->default(false);
-            $table->string("categoria");//nome da categoria
-            $table->string("tipo");// se e credito ou debito
+        Schema::create('categoria_user', function (Blueprint $table) {
+            $table->foreignId("categoria_id")->constrained();
+            $table->foreignId("user_id")->constrained();
+            $table->string("Tipo");// define se e created, updated ou deleted
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('categoria_user');
     }
 };

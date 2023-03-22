@@ -13,8 +13,8 @@ class Transacao extends Model
         "user_id", "pessoa_id", "categoria_id", "descricao", "valor", "status", "vencimento", "liquidada", "excluido",
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     public function pessoa(){

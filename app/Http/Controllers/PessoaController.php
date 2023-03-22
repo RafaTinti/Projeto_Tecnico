@@ -15,10 +15,8 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        // $pessoas = Pessoa::orderBy("updated_at", "desc")->get(); // other option
-        // dd($pessoas);
         return view("Pessoas.index", [
-            "pessoas" => Pessoa::where("excluido", false)->paginate(10), // gets all pessoas que nao foram excluidas
+            "pessoas" => Pessoa::where("excluido", false)->paginate(10), // gets todas as pessoas que nao foram excluidas
         ]);
     }
 
@@ -74,10 +72,6 @@ class PessoaController extends Controller
     public function show($id)
     {
         $pessoa = Pessoa::where("excluido", false)->findOrFail($id);
-        
-        
-
-
 
         return view("Pessoas.show", [
             "pessoa" => $pessoa,

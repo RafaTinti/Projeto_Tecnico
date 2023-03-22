@@ -13,8 +13,8 @@ class Categoria extends Model
         "categoria","tipo","user_id", "excluido",
     ];
 
-    public function pessoas(){
-        return $this->belongsTo(Pessoa::class);
+    public function users(){
+        return $this->belongsToMany(User::class)->withPivot("tipo")->withTimestamps();
     }
     public function transacoes(){
         return $this->hasMany(Transacao::class);

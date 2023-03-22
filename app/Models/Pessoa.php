@@ -14,7 +14,7 @@ class Pessoa extends Model
     ];
 
     public function users(){
-        return $this->belongsToMany(User::class)->withPivot("tipo");
+        return $this->belongsToMany(User::class)->withPivot("tipo")->withTimestamps();
     }
 
     public function transacoes(){

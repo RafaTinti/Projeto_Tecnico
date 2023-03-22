@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('transacaos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
-            // $table->unsignedBigInteger("modified_by_user_id");
             $table->unsignedBigInteger("pessoa_id");
             $table->unsignedBigInteger("categoria_id");
             $table->boolean("excluido")->default(false);
@@ -23,8 +21,6 @@ return new class extends Migration
             $table->string("status");
             $table->timestamp("vencimento");
             $table->timestamp("liquidada")->nullable();
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-            // $table->foreign("modified_by_user_id")->references("id")->on("users")->onDelete("cascade");
             $table->foreign("pessoa_id")->references("id")->on("pessoas")->onDelete("cascade");
             $table->foreign("categoria_id")->references("id")->on("categorias")->onDelete("cascade");
             $table->timestamps();

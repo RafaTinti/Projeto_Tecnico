@@ -7,16 +7,27 @@ use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Pessoa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransacaoController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //faz o saldo entre debitos e creditos
+        $credCategorias = Categoria::where("excluido", false)->where("tipo", "credito")->get();
+        $creditos = Transacao::where("excluido", false)->whereBelongsTo($credCategorias)->sum("valor");
+
+        $debCategorias = Categoria::where("excluido", false)->where("tipo","debito")->get();
+        $debitos = Transacao::where("excluido", false)->whereBelongsTo($debCategorias)->sum("valor");
+        $saldo = $creditos - $debitos;
+
+
         return view("Transacao.index", [
-            "transacoes" => Transacao::paginate(10), // gets all pessoas
+            "transacoes" => Transacao::where("excluido", false)->paginate(10), // gets all pessoas
+            "saldo" => $saldo
         ]);
     }
 
@@ -42,7 +53,6 @@ class TransacaoController extends Controller
         ]);
 
         Transacao::create([
-            "user_id" => $request->user()->id,
             "pessoa_id" => $request->pessoa_id, // nao precisa validar como vem do DB
             "categoria_id" => $request->categoria_id, // mesmo
             "descricao" => $request->descricao,
@@ -50,7 +60,8 @@ class TransacaoController extends Controller
             "valor" => $request->valor*100, //validar que tem so ate duas casas decimais
             "vencimento" => $request->vencimento,
             "liquidada" => $request->liquidada,//vem nulo se status e pendente
-        ]);
+            "excluido" => false,
+        ])->users()->attach(Auth::id(), ["tipo" => "created"]);
 
         return redirect(route("Transacao.index"));
     }
@@ -58,10 +69,14 @@ class TransacaoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($id, )
     {
+        $transacao = Transacao::where("excluido", false)->findOrFail($id);
+
         return view("Transacao.show", [
-            "transacao" => Transacao::findOrFail($id),
+            "transacao" => $transacao,
+            "criador" => $transacao->users->first(),
+            "modificador" => $transacao->users->last(),
         ]);
     }
 
@@ -71,9 +86,9 @@ class TransacaoController extends Controller
     public function edit($id)
     {
         return view("Transacao.edit", [
-            "transacao" => Transacao::findOrFail($id),
-            "pessoas" => Pessoa::get(),
-            "categorias" => Categoria::get(),
+            "transacao" => Transacao::where("excluido", false)->findOrFail($id),
+            "pessoas" => Pessoa::where("excluido", false)->get(),
+            "categorias" => Categoria::where("excluido", false)->get(),
         ]);
     }
 
@@ -88,7 +103,6 @@ class TransacaoController extends Controller
         ]);
 
         Transacao::where("id", $id)->update([
-            "user_id" => $request->user()->id,
             "pessoa_id" => $request->pessoa_id, // nao precisa validar como vem do DB
             "categoria_id" => $request->categoria_id, // mesmo
             "descricao" => $request->descricao,
@@ -98,6 +112,8 @@ class TransacaoController extends Controller
             "liquidada" => $request->liquidada,//vem nulo se status e pendente
         ]);
 
+        Transacao::find($id)->users()->attach(Auth::id(), ["tipo" => "updated"]);
+
         return redirect(route("Transacao.index"));
     }
 
@@ -106,7 +122,11 @@ class TransacaoController extends Controller
      */
     public function destroy($id)
     {
-        Transacao::destroy($id);
+        Transacao::where("id", $id)->update([ //exclusao logica
+            "excluido" => true,
+        ]);
+        Transacao::find($id)->users()->attach(Auth::id(), ["tipo" => "deleted"]); 
+
         return redirect(route("Transacao.index"))->with("message","Excluido com sucesso");
     }
 }

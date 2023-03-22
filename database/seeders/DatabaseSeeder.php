@@ -21,9 +21,20 @@ class DatabaseSeeder extends Seeder
         Categoria::factory(20)->create(); //cria 10 categorias falsas
         Transacao::factory(50)->create(); //cria 50 transacoes falsas
 
+        //cria relacaoes pata pessoas, categorias e transacoes onde o usuario padrao criou
         $pessoas = Pessoa::get();
+        $categorias = Categoria::get();
+        $transacaos = Transacao::get();
         foreach ($pessoas as $pessoa){
-            $pessoa->users()->attach(1, ["tipo" => "created"]);
+            $pessoa->users()->attach(1, ["tipo" => "created"]); // 
+        }
+
+        foreach ($categorias as $categoria){
+            $categoria->users()->attach(1, ["tipo" => "created"]);
+        }
+
+        foreach ($transacaos as $transacao){
+            $transacao->users()->attach(1, ["tipo" => "created"]); // 
         }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriaController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoriaController extends Controller
     public function index()
     {
         return view("Categorias.index", [
-            "categorias" => Categoria::paginate(10), // gets all pessoas
+            "categorias" => Categoria::where("excluido", false)->paginate(10), // pagina todas as pessoas nao excluidas
         ]);
     }
 
@@ -38,8 +39,8 @@ class CategoriaController extends Controller
         Categoria::create([
             "categoria" => $request->categoria,
             "tipo" => $request->tipo,
-            "user_id" => $request->user()->id,
-        ]);
+            'excluido' => false,
+        ])->users()->attach(Auth::id(), ["tipo" => "created"]);
         return redirect(route("Categorias.index"));
     }
 
@@ -48,8 +49,12 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
+        $categoria = Categoria::where("excluido", false)->findOrFail($id);
+
         return view("Categorias.show", [
             "categoria" => Categoria::findOrFail($id),
+            "criador" => $categoria->users->first(),// primeiro e sempre quem criou
+            "modificador" => $categoria->users->last(),
         ]);
     }
 
@@ -59,7 +64,7 @@ class CategoriaController extends Controller
     public function edit($id)
     {
         return view("Categorias.edit", [
-            "categoria" => Categoria::findOrFail($id),
+            "categoria" => Categoria::where("excluido", false)->findOrFail($id),
         ]);
     }
 
@@ -75,8 +80,9 @@ class CategoriaController extends Controller
         Categoria::where("id", $id)->update([
             "categoria" => $request->categoria,
             "tipo" => $request->tipo,
-            "user_id" => $request->user()->id,
         ]);
+
+        Categoria::find($id)->users()->attach(Auth::id(), ["tipo" => "updated"]);
 
         return redirect(route("Categorias.index"));
     }
@@ -86,7 +92,11 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        Categoria::destroy($id);
+        Categoria::where("id", $id)->update([
+            "excluido" => true,
+        ]);
+        Categoria::find($id)->users()->attach(Auth::id(), ["tipo" => "deleted"]);
+
         return redirect(route("Categorias.index"))->with("message","Excluido com sucesso");
     }
 }

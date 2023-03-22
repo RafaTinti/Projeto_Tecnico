@@ -43,14 +43,14 @@ class User extends Authenticatable
     ];
 
     public function users(){
-        return $this->belongsToMany(Pessoa::class)->withPivot("tipo");;
+        return $this->belongsToMany(Pessoa::class)->withPivot("tipo")->withTimestamps();
     }
 
     public function categorias(){
-        return $this->hasMany(Categoria::class);
+        return $this->belongsToMany(Categoria::class)->withPivot("tipo")->withTimestamps();
     }
 
     public function transacoes(){
-        return $this->hasMany(Transacao::class);
+        return $this->belongsToMany(Transacao::class)->withPivot("tipo")->withTimestamps();
     }
 }

@@ -46,8 +46,9 @@
                     <p>{{ $transacao->liquidada }}</p>
                 </div>
             </div>
-            <div class="px-4 py-2">
-                <p>Cadastrado ou atualizado por ultimo por <span class=" font-bold">{{$transacao->user->name}}</span></p>
+            <div class=" flex justify-between px-4 py-6">
+                <p>Cadastrado por: <span class=" font-bold text-green-400">{{$criador->name}}</span></p>
+                <p>atualizado por ultimo por: <span class=" font-bold text-green-400">{{$modificador->name}}</span></p>
             </div>
             <div class="flex justify-between px-4 py-2 pb-4">
                 <div>

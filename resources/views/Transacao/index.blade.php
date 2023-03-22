@@ -12,7 +12,12 @@
     @endif
     
     <div class="mx-auto p-4 sm:p-6 lg:p-8 flex justify-between">
-        <div></div>
+        <div>
+            <p class=" text-lg pt-10 sm:pt-5">Saldo atual R&#36 <span class="{{($saldo<0)? "text-red-500" : "text-green-500"}}">{{$saldo/100}}</span></p>
+        </div>
+
+        
+
         <div class="pt-10 sm:pt-5">
             <a class="primary-btn inline text-base sm:text-xl  bg-blue-800 py-4 px-4 shadow-xl rounded-full transition-all hover:bg-blue-700  text-white" 
                href="{{ route("Transacao.create") }}">

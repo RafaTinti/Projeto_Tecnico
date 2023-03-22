@@ -19,7 +19,6 @@ class TransacaoFactory extends Factory
     {
         $n = random_int(0,1);
         return [
-            "user_id" => 1,
             "pessoa_id" => random_int(1,50), 
             "categoria_id" => random_int(1,20), 
             "descricao" => fake()->sentence(4), 
@@ -27,7 +26,6 @@ class TransacaoFactory extends Factory
             "status" => $n? "pendente" : "liquidada",
             "vencimento" => Carbon::now()->format("Y-m-d"),
             "liquidada" => $n ? null : Carbon::now()->format("Y-m-d"),
-            // "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
             "excluido" => false,// sempre falso ate ser modificado no destroy do controller
         ];
     }

@@ -17,7 +17,6 @@ class CategoriaFactory extends Factory
     public function definition(): array
     {
         return [
-            "user_id" => 1,
             "categoria" => fake()->word,// sera em ingles infelizmente
             "tipo" => (random_int(0,1)) ? "debito" : "credito",
             // "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
