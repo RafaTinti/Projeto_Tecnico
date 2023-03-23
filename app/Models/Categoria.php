@@ -13,10 +13,10 @@ class Categoria extends Model
         "categoria","tipo","user_id", "excluido",
     ];
 
-    public function users(){
+    public function users(){ // relacao de muitos para muitos
         return $this->belongsToMany(User::class)->withPivot("tipo")->withTimestamps();
     }
-    public function transacoes(){
+    public function transacoes(){ // um para muitos
         return $this->hasMany(Transacao::class);
     }
 }

@@ -129,7 +129,7 @@ class PessoaController extends Controller
     public function destroy($id)
     {
         Pessoa::where("id", $id)->update([
-            "excluido" => true,
+            "excluido" => true, 
         ]);
         Pessoa::find($id)->users()->attach(Auth::id(), ["tipo" => "deleted"]);
         return redirect(route("Pessoas.index"))->with("message","Excluido com sucesso");

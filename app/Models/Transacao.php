@@ -17,7 +17,7 @@ class Transacao extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    public function pessoa(){
+    public function pessoa(){ //cada transacao tem uma e apenas uma pessoa
         return $this->belongsTo(Pessoa::class);
     }
 
