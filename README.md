@@ -27,6 +27,8 @@
 seeder cria um usuario padrao admin@admin.com senha: password
 50 pessoas, 20 categorias e 50 transacoes
 
+## notas
+
 node.js and composer
 
 php artisan migrate to make the tables
