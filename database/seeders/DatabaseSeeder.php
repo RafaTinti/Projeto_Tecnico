@@ -16,17 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(UserTableSeeder::class);//seeds o usuario defaut
+        $this->call(UserTableSeeder::class);//seeds o usuario padrao
         Pessoa::factory(50)->create();//cria 50 pessoas falsas
         Categoria::factory(20)->create(); //cria 10 categorias falsas
         Transacao::factory(50)->create(); //cria 50 transacoes falsas
 
-        //cria relacaoes pata pessoas, categorias e transacoes onde o usuario padrao criou
+        //cria relacaoes para pessoas, categorias e transacoes onde o usuario padrao criou
         $pessoas = Pessoa::get();
         $categorias = Categoria::get();
         $transacaos = Transacao::get();
         foreach ($pessoas as $pessoa){
-            $pessoa->users()->attach(1, ["tipo" => "created"]); // 
+            $pessoa->users()->attach(1, ["tipo" => "created"]); 
         }
 
         foreach ($categorias as $categoria){
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ($transacaos as $transacao){
-            $transacao->users()->attach(1, ["tipo" => "created"]); // 
+            $transacao->users()->attach(1, ["tipo" => "created"]); 
         }
     }
 }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string("estado",2);
             $table->string("cidade");
             $table->string("fis_ou_jur");//fisico ou juridico valida no controller
-            $table->string("cpf")->unique()->nullable();//cpf ou null se juridica
-            $table->string("cnpj")->unique()->nullable();
+            $table->string("cpf")->unique()->nullable();//cpf unico ou null se juridica
+            $table->string("cnpj")->unique()->nullable();// mesmo pro cnpj
             $table->boolean("ativo")->default(true);// pessoas vao ser ativas ate que se modifique
             $table->string("contato");// guarda o numero como (81) 99927-0692
             $table->string("email", 255)->unique();

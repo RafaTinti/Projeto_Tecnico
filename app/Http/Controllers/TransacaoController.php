@@ -37,8 +37,8 @@ class TransacaoController extends Controller
     public function create()
     {
         return view("Transacao.create", [
-            "pessoas" => Pessoa::get(),
-            "categorias" => Categoria::get(),
+            "pessoas" => Pessoa::where("excluido", false)->get(),
+            "categorias" => Categoria::where("excluido", false)->get(),
         ]);
     }
 

@@ -16,7 +16,7 @@
             <p class=" text-lg pt-10 sm:pt-5">Saldo atual R&#36 <span class="{{($saldo<0)? "text-red-500" : "text-green-500"}}">{{$saldo/100}}</span></p>
         </div>
 
-        
+        {{-- aqui vai os botoes para mudar entre liquidados e pendentes --}}
 
         <div class="pt-10 sm:pt-5">
             <a class="primary-btn inline text-base sm:text-xl  bg-blue-800 py-4 px-4 shadow-xl rounded-full transition-all hover:bg-blue-700  text-white" 

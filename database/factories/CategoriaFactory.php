@@ -18,8 +18,7 @@ class CategoriaFactory extends Factory
     {
         return [
             "categoria" => fake()->word,// sera em ingles infelizmente
-            "tipo" => (random_int(0,1)) ? "debito" : "credito",
-            // "modified_by_user_id" => 1, // mesmo usuario que criou inicialmente
+            "tipo" => (random_int(0,1)) ? "debito" : "credito",// seleciona debito ou credtito aleatoriamente
             "excluido" => false,// sempre falso ate ser modificado no destroy do controller
         ];
     }
